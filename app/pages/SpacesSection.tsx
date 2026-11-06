@@ -93,7 +93,7 @@ export default function SpacesSection() {
 
                                             {/* Imagem desktop: fade + zoom out suave */}
                                             <div className="relative hidden lg:block w-full flex-grow min-h-[500px] overflow-hidden">
-                                                <Reveal kind="image" standalone className="absolute inset-0">
+                                                <Reveal standalone className="absolute inset-0">
                                                     <Image
                                                         src={cabana.images[0]}
                                                         alt={`${cabana.name} - Vista principal`}
@@ -186,7 +186,7 @@ export default function SpacesSection() {
                                             </Stagger>
 
                                             <div className="relative w-full aspect-[16/10] mt-4 overflow-hidden">
-                                                <Reveal kind="image" standalone className="absolute inset-0">
+                                                <Reveal standalone className="absolute inset-0">
                                                     <Image
                                                         src={cabana.images[1]}
                                                         alt={`${cabana.name} - Detalhes`}
