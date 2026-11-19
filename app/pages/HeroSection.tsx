@@ -17,7 +17,7 @@ export default function HeroSection() {
     offset: ["start start", "end start"],
   });
 
-  
+
   const bgY = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["0%", "12%"]);
   const contentY = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["0%", "-10%"]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, reduce ? 1 : 0]);
@@ -52,7 +52,7 @@ export default function HeroSection() {
         </m.div>
 
         <m.div
-          className="relative z-10 w-full max-w-4xl px-6 md:pl-16 lg:pl-44 flex flex-col gap-6 md:gap-8"
+          className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col gap-6 md:gap-8"
           style={{ y: contentY, opacity: contentOpacity }}
         >
           <m.div
@@ -61,44 +61,51 @@ export default function HeroSection() {
             initial="hidden"
             animate="show"
           >
-            <m.div variants={variants.item}>
-              <Title
-                scriptFirstLetter={true}
-                firstLetterMargin="0.1em"
-                className="text-[#E1D5BF] uppercase leading-[1.15] whitespace-pre-line text-[1.4rem] sm:text-3xl md:text-5xl [&>span]:text-[2.2em] [&>span]:leading-[0] [&>span]:-ml-[0.1em]"
-              >
-                {"Você,\nquem você ama\ne um refúgio romântico\ncercado por natureza"}
-              </Title>
-            </m.div>
-
             <m.div
-              variants={stagger(0.16, 0.05)}
-              className="relative pl-4 md:pl-6 py-1 flex flex-col gap-5 md:gap-6"
+              className="flex flex-col gap-6 md:gap-8"
+              variants={stagger(0.2, 0.35)}
+              initial="hidden"
+              animate="show"
             >
-              <m.span
-                aria-hidden
-                variants={variants.lineY}
-                className="absolute left-0 top-0 h-full w-px bg-[#E1D5BF]/70 origin-top"
-              />
-
               <m.div variants={variants.item}>
-                <Text className="text-[#E1D5BF] text-sm sm:text-base leading-[1.4] max-w-[420px]">
-                  Desligue-se da rotina e sinta a paz de um refúgio exclusivo na serra. A
-                  Pousada Alvorada conta com cabanas privativas e elegantes, com a
-                  atmosfera perfeita em meio à natureza.
-                </Text>
+                <Title
+                  scriptFirstLetter={true}
+                  firstLetterMargin="0.1em"
+                  className="text-[#E1D5BF] uppercase leading-[1.15] whitespace-pre-line text-[1.4rem] sm:text-3xl md:text-5xl [&>span]:text-[2.2em] [&>span]:leading-[0] [&>span]:-ml-[0.1em]"
+                >
+                  {"Você,\nquem você ama\ne um refúgio romântico\ncercado por natureza"}
+                </Title>
               </m.div>
 
               <m.div
-                variants={variants.item}
-                className="flex flex-row flex-nowrap gap-2 sm:gap-4 w-full"
+                variants={stagger(0.16, 0.05)}
+                className="relative pl-4 md:pl-6 py-1 flex flex-col gap-5 md:gap-6"
               >
-                <Button className="whitespace-nowrap text-[13px] sm:text-base px-3 sm:px-6">
-                  Fazer reserva
-                </Button>
-                <Button className="whitespace-nowrap text-[13px] sm:text-base px-3 sm:px-6">
-                  Conhecer cabanas
-                </Button>
+                <m.span
+                  aria-hidden
+                  variants={variants.lineY}
+                  className="absolute left-0 top-0 h-full w-px bg-[#E1D5BF]/70 origin-top"
+                />
+
+                <m.div variants={variants.item}>
+                  <Text className="text-[#E1D5BF] text-sm sm:text-base leading-[1.4] max-w-[420px]">
+                    Desligue-se da rotina e sinta a paz de um refúgio exclusivo na serra. A
+                    Pousada Alvorada conta com cabanas privativas e elegantes, com a
+                    atmosfera perfeita em meio à natureza.
+                  </Text>
+                </m.div>
+
+                <m.div
+                  variants={variants.item}
+                  className="flex flex-row flex-nowrap gap-2 sm:gap-4 w-full"
+                >
+                  <Button className="whitespace-nowrap text-[13px] sm:text-base px-3 sm:px-6">
+                    Fazer reserva
+                  </Button>
+                  <Button className="whitespace-nowrap text-[13px] sm:text-base px-3 sm:px-6">
+                    Conhecer cabanas
+                  </Button>
+                </m.div>
               </m.div>
             </m.div>
           </m.div>
