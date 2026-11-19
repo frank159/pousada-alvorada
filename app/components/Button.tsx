@@ -1,12 +1,12 @@
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { AnchorHTMLAttributes, ReactNode } from "react";
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+type ButtonProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   children: ReactNode;
 };
 
 export default function Button({ children, className = "", ...props }: ButtonProps) {
   return (
-    <button
+    <a
       className={[
         "inline-flex items-center justify-center",
         "px-4 py-2",
@@ -25,6 +25,6 @@ export default function Button({ children, className = "", ...props }: ButtonPro
       {...props}
     >
       {children}
-    </button>
+    </a>
   );
 }

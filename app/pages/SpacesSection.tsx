@@ -1,13 +1,17 @@
 "use client";
 
-import Image from "next/image";
 import { LazyMotion, domAnimation } from "framer-motion";
 import Title from "../components/Title";
 import Text from "../components/Text";
 import Button from "../components/Button";
 import DividerWithSun from "../components/DividerWithSun";
+import ImageSlideshow from "../components/ImageSlideshow";
 import { Reveal, Stagger } from "../lib/motion";
 import SunRow from "../components/SunRow";
+
+// Tempos diferentes para os exibidores não trocarem de foto ao mesmo tempo
+const MAIN_INTERVAL = 4000;
+const DETAIL_INTERVAL = 5000;
 
 const spacesData = [
     {
@@ -18,7 +22,10 @@ const spacesData = [
         details:
             "A área externa da Cabana foi projetada para proporcionar uma experiência completa, com hidromassagem para fora você pode aproveitar a vista para um céu deslumbrante, mesa para refeições e churrasqueira equipada.",
         pet: "Seu pet é bem-vindo! Garantimos a segurança e o conforto do seu animal durante o passeio, lembre-se de respeitar a vida selvagem e zelar pelo conforto do seu pet.",
-        images: ["/imgs/detailSection01.png", "/imgs/detailSection02.png"],
+        images: {
+            main: ["/imgs/carrocel/1/1.jpg", "/imgs/carrocel/1/2.jpg", "/imgs/carrocel/1/3.jpg", "/imgs/carrocel/1/4.jpg"],
+            detail: ["/imgs/carrocel/2/1.jpg", "/imgs/carrocel/2/2.jpg", "/imgs/carrocel/2/3.jpg"],
+        },
     },
     {
         id: "sorriso",
@@ -28,14 +35,17 @@ const spacesData = [
         details:
             "Elegante e romântica, ela é perfeita para você aproveitar uma noite incrível com quem ama.",
         pet: "Seu pet é bem-vindo! Garantimos a segurança e o conforto do seu animal durante o passeio, lembre-se de respeitar a vida selvagem e zelar pelo conforto do seu pet.",
-        images: ["/imgs/detailSection03.png", "/imgs/detailSection04.png"],
+        images: {
+            main: ["/imgs/carrocel/3/1.jpg", "/imgs/carrocel/3/2.jpg", "/imgs/carrocel/3/3.jpg", "/imgs/carrocel/3/4.jpg", "/imgs/carrocel/3/5.jpg"],
+            detail: ["/imgs/carrocel/4/1.jpg", "/imgs/carrocel/4/2.jpg", "/imgs/carrocel/4/3.jpg"],
+        },
     },
 ];
 
 export default function SpacesSection() {
     return (
         <LazyMotion features={domAnimation} strict>
-            <section className="text-[#E1D5BF] pt-24 lg:py-32 overflow-hidden">
+            <section id="cabanas" className="scroll-mt-0 text-[#E1D5BF] pt-24 lg:py-32 overflow-hidden">
                 <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col gap-24 lg:gap-32">
 
                     {/* Cabeçalho */}
@@ -72,6 +82,10 @@ export default function SpacesSection() {
                             const isEven = index % 2 === 0;
                             const isLast = index === spacesData.length - 1;
 
+                            // No mobile existe só um espaço de imagem (o fundo),
+                            // então ele roda todas as fotos da cabana
+                            const mobileImages = [...cabana.images.main, ...cabana.images.detail];
+
                             return (
                                 <div key={cabana.id} className="flex flex-col">
 
@@ -81,25 +95,24 @@ export default function SpacesSection() {
 
                                             {/* Fundo mobile */}
                                             <div className="absolute inset-0 z-0 lg:hidden">
-                                                <Image
-                                                    src={cabana.images[0]}
+                                                <ImageSlideshow
+                                                    images={mobileImages}
                                                     alt={`${cabana.name} - Fundo`}
-                                                    fill
                                                     sizes="100vw"
-                                                    className="object-cover"
+                                                    interval={MAIN_INTERVAL}
+                                                    interactive={false}
                                                 />
-                                                <div className="absolute inset-0 bg-[#1A0D0A]/80" />
+                                                <div className="absolute inset-0 bg-[#1A0D0A]/80 pointer-events-none" />
                                             </div>
 
                                             {/* Imagem desktop: fade + zoom out suave */}
                                             <div className="relative hidden lg:block w-full flex-grow min-h-[500px] overflow-hidden">
                                                 <Reveal standalone className="absolute inset-0">
-                                                    <Image
-                                                        src={cabana.images[0]}
+                                                    <ImageSlideshow
+                                                        images={cabana.images.main}
                                                         alt={`${cabana.name} - Vista principal`}
-                                                        fill
                                                         sizes="50vw"
-                                                        className="object-cover"
+                                                        interval={MAIN_INTERVAL}
                                                     />
                                                 </Reveal>
                                             </div>
@@ -111,13 +124,25 @@ export default function SpacesSection() {
                                             >
                                                 {isEven ? (
                                                     <>
-                                                        <Button>Fazer reserva</Button>
+                                                        <Button
+                                                            href='https://wa.me/5541996262562?text=Olá!%20Gostaria%20de%20mais%20informações.'
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                        >
+                                                            Fazer reserva
+                                                        </Button>
                                                         <div className="h-14 w-[1px] bg-[#E1D5BF]" />
                                                     </>
                                                 ) : (
                                                     <>
                                                         <div className="h-14 w-[1px] bg-[#E1D5BF]" />
-                                                        <Button>Fazer reserva</Button>
+                                                        <Button
+                                                            href='https://wa.me/5541996262562?text=Olá!%20Gostaria%20de%20mais%20informações.'
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                        >
+                                                            Fazer reserva
+                                                        </Button>
                                                     </>
                                                 )}
                                             </Reveal>
@@ -187,19 +212,17 @@ export default function SpacesSection() {
 
                                             <div className="relative w-full aspect-[16/10] mt-4 overflow-hidden">
                                                 <Reveal standalone className="absolute inset-0">
-                                                    <Image
-                                                        src={cabana.images[1]}
+                                                    <ImageSlideshow
+                                                        images={cabana.images.detail}
                                                         alt={`${cabana.name} - Detalhes`}
-                                                        fill
                                                         sizes="50vw"
-                                                        className="object-cover"
+                                                        interval={DETAIL_INTERVAL}
                                                     />
                                                 </Reveal>
                                             </div>
                                         </div>
                                     </div>
 
-                                    {/* Divisor */}
                                     {/* Divisor */}
                                     {!isLast && (
                                         <div className="relative z-20 h-0 lg:h-auto">

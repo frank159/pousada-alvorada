@@ -99,10 +99,24 @@ export default function HeroSection() {
                   variants={variants.item}
                   className="flex flex-row flex-nowrap gap-2 sm:gap-4 w-full"
                 >
-                  <Button className="whitespace-nowrap text-[13px] sm:text-base px-3 sm:px-6">
+                  <Button
+                    className="whitespace-nowrap text-[13px] sm:text-base px-3 sm:px-6"
+                    href='https://wa.me/5541996262562?text=Olá!%20Gostaria%20de%20mais%20informações.'
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Fazer reserva
                   </Button>
-                  <Button className="whitespace-nowrap text-[13px] sm:text-base px-3 sm:px-6">
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      document.getElementById("cabanas")?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start",
+                      });
+                    }}
+                    className="whitespace-nowrap text-[13px] sm:text-base px-3 sm:px-6"
+                  >
                     Conhecer cabanas
                   </Button>
                 </m.div>
