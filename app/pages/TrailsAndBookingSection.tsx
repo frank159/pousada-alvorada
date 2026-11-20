@@ -22,7 +22,7 @@ export default function TrailsAndBookingSection() {
 
     return (
         <LazyMotion features={domAnimation} strict>
-            <section className="text-[#E1D5BF] pt-14 lg:pt-32">
+            <section className="text-[#E1D5BF] -mt-5 lg:pt-32">
                 <div className="flex flex-col w-full">
                     <div className="max-w-7xl mx-auto w-full px-6 md:px-12 flex flex-col">
                         <div className="mt-0 mb-30">
