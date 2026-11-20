@@ -34,10 +34,10 @@ export default function HeroSection() {
   return (
     <LazyMotion features={domAnimation} strict>
       <section
+        id='home'
         ref={ref}
         className="relative w-full h-auto min-h-[110vh] md:h-screen md:min-h-[600px] flex items-center py-24 md:py-0 overflow-hidden"
       >
-        {/* Camada 1: parallax (scroll). Camada 2: entrada (fade + zoom) */}
         <m.div
           className="absolute inset-x-0 -top-[15%] -bottom-[15%] z-0"
           style={{ y: bgY, willChange: "transform" }}

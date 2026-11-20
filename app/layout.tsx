@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Cinzel, Herr_Von_Muellerhoff } from "next/font/google";
+import { Geist, Geist_Mono, Cinzel, Herr_Von_Muellerhoff, Alata } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,6 +24,12 @@ const herrVonMuellerhoff = Herr_Von_Muellerhoff({
   weight: "400",
 });
 
+const alata = Alata({
+  variable: "--font-alata",
+  subsets: ["latin"],
+  weight: "400",
+});
+
 export const metadata: Metadata = {
   title: "Projeto Next.js",
   description: "Gerado com base nas referências",
@@ -34,10 +40,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="pt-BR"
       className={`
-        ${geistSans.variable} 
-        ${geistMono.variable} 
-        ${cinzel.variable} 
-        ${herrVonMuellerhoff.variable} 
+        ${geistSans.variable}
+        ${geistMono.variable}
+        ${cinzel.variable}
+        ${herrVonMuellerhoff.variable}
+        ${alata.variable}
         h-full antialiased
       `}
     >

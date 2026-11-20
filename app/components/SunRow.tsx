@@ -4,8 +4,6 @@ import { LazyMotion, domAnimation, m } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { EASE, useMotion } from "../lib/motion";
 
-// Cada raio começa perto da bolinha e termina na ponta externa,
-// assim o pathLength 0 → 1 "nasce" no centro e vai para fora.
 const RAYS = [
     "M19.793 26.6858 L19.793 39.6639",
     "M19.793 13.7576 L19.793 0.5",
@@ -17,7 +15,6 @@ const RAYS = [
     "M24.0261 24.7877 L32.7079 34.4343",
 ];
 
-/** Linha + sol + linha, com animação de entrada ao aparecer na tela */
 export default function SunRow({ className = "" }: { className?: string }) {
     const { reduce } = useMotion();
 
@@ -27,13 +24,11 @@ export default function SunRow({ className = "" }: { className?: string }) {
         ease: EASE,
     });
 
-    // 1) Bolinha: de 0 a 100%
     const dot: Variants = {
         hidden: { scale: reduce ? 1 : 0 },
         show: { scale: 1, transition: t(0.6, 0.05) },
     };
 
-    // 2) Raios: saem do centro até a posição final
     const ray: Variants = {
         hidden: { pathLength: reduce ? 1 : 0, opacity: reduce ? 1 : 0 },
         show: (i: number) => ({
@@ -46,12 +41,11 @@ export default function SunRow({ className = "" }: { className?: string }) {
         }),
     };
 
-    // 3) Linhas: crescem a partir do sol em direção às bordas
     const line: Variants = {
         hidden: { scaleX: reduce ? 1 : 0 },
         show: { scaleX: 1, transition: t(1.0, 0.7) },
     };
-    
+
     return (
         <LazyMotion features={domAnimation}>
             <m.div

@@ -29,7 +29,7 @@ export function useMotion() {
                 hidden: { opacity: 0 },
                 show: { opacity: 1, transition: tr(1.6) },
             },
-            
+
             curtain: {
                 hidden: { clipPath: reduce ? "inset(0% 0% 0% 0%)" : "inset(0% 0% 100% 0%)" },
                 show: { clipPath: "inset(0% 0% 0% 0%)", transition: tr(1.7) },
@@ -110,7 +110,6 @@ export function Reveal({
     );
 }
 
-/** Cortina de entrada + parallax no scroll, em um único componente */
 export function CurtainImage({
     children,
     className = "absolute inset-0",
@@ -118,9 +117,9 @@ export function CurtainImage({
 }: {
     children: ReactNode;
     className?: string;
-    range?: number; 
+    range?: number;
 }) {
-    const ref = useRef<HTMLDivElement>(null);   
+    const ref = useRef<HTMLDivElement>(null);
     const { reduce, variants } = useMotion();
 
     const { scrollYProgress } = useScroll({
@@ -134,7 +133,7 @@ export function CurtainImage({
     );
 
     return (
-        
+
         <m.div
             ref={ref}
             className={className}
@@ -143,9 +142,7 @@ export function CurtainImage({
             whileInView="show"
             viewport={VIEWPORT}
         >
-            {/* Camada 2: a cortina (clip-path) */}
             <m.div className="absolute inset-0 overflow-hidden" variants={variants.curtain}>
-                {/* Camada 3: parallax contínuo */}
                 <m.div
                     className="absolute inset-0"
                     style={{ y, scale: reduce ? 1 : 1.2, willChange: "transform" }}

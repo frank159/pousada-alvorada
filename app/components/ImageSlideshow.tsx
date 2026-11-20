@@ -7,15 +7,10 @@ type ImageSlideshowProps = {
     images: string[];
     alt: string;
     sizes: string;
-    /** Tempo entre trocas, em ms */
     interval?: number;
-    /** Duração do fade, em ms */
     fadeDuration?: number;
-    /** Imagem inicial (útil para dois exibidores não mostrarem a mesma foto) */
     startIndex?: number;
-    /** Permite trocar ao clicar */
     interactive?: boolean;
-    /** Mostra os indicadores (bolinhas) embaixo */
     showDots?: boolean;
     className?: string;
     imageClassName?: string;
@@ -41,7 +36,6 @@ export default function ImageSlideshow({
         setIndex((i) => (i + 1) % total);
     }, [total]);
 
-    // Depende de `index`: ao clicar, o timer é reiniciado
     useEffect(() => {
         if (!canSwitch) return;
         const id = setTimeout(next, interval);

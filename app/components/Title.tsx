@@ -3,13 +3,8 @@ import type { ReactNode } from "react";
 type TitleProps = {
   children: ReactNode;
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
-  /** Aplica a fonte Herr Von Muellerhoff na primeira letra */
   scriptFirstLetter?: boolean;
-  /**
-   * Espaçamento entre a primeira letra e o restante do texto.
-   * Só tem efeito quando `scriptFirstLetter` for `true`.
-   * Aceita qualquer valor CSS (ex: "0.15em", "8px", "0.5rem").
-   */
+
   firstLetterMargin?: string;
   className?: string;
 };

@@ -6,15 +6,14 @@
 }
 
 @theme inline {
-  /* Cores */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  /* Fontes */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-cinzel: var(--font-cinzel);
   --font-script: var(--font-herr-von-muellerhoff);
+  --font-alata: var(--font-alata);
 }
 
 @media (prefers-color-scheme: dark) {

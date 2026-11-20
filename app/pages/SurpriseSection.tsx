@@ -29,7 +29,6 @@ export default function SurpriseSection() {
     const { reduce } = useMotion();
     const ref = useRef<HTMLElement>(null);
 
-    // Parallax suave no fundo enquanto a seção cruza a tela
     const { scrollYProgress } = useScroll({
         target: ref,
         offset: ["start end", "end start"],
@@ -43,10 +42,10 @@ export default function SurpriseSection() {
     return (
         <LazyMotion features={domAnimation} strict>
             <section
+                id='cestas'
                 ref={ref}
                 className="relative w-full overflow-hidden flex items-center lg:py-32 lg:min-h-[80vh]"
             >
-                {/* Fundo: parallax (scroll) + fade de entrada */}
                 <m.div
                     className="absolute inset-x-0 -top-[10%] -bottom-[10%]"
                     style={{ y: bgY, willChange: "transform" }}
@@ -102,7 +101,13 @@ export default function SurpriseSection() {
                             </div>
 
                             <Reveal className="w-full whitespace-nowrap [&>button]:w-full [&>button]:whitespace-nowrap">
-                                <Button>Encomendar cesta</Button>
+                                <Button
+                                    href='https://wa.me/5541996262562?text=Olá!%20Gostaria%20de%20mais%20informações.'
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Encomendar cesta
+                                </Button>
                             </Reveal>
                         </div>
                     </div>
@@ -111,7 +116,6 @@ export default function SurpriseSection() {
                 {/* ===================== DESKTOP ===================== */}
                 <div className="relative z-10 w-full max-w-7xl ml-65 px-6 md:px-12 hidden lg:block">
                     <div className="flex flex-row items-start gap-8 lg:gap-16">
-                        {/* Imagem: caixa com fade + cortina com parallax por dentro */}
                         <Reveal
                             kind="fade"
                             standalone
@@ -128,7 +132,6 @@ export default function SurpriseSection() {
                             </CurtainImage>
                         </Reveal>
 
-                        {/* Texto em cascata, começando um pouco depois da imagem */}
                         <Stagger
                             className="flex flex-col items-start text-left gap-6 text-[#E1D5BF] lg:pl-2"
                             gap={0.14}
@@ -153,8 +156,13 @@ export default function SurpriseSection() {
                             </div>
 
                             <Reveal className="mt-4">
-                                <Button>Encomendar cesta</Button>
-                            </Reveal>
+                                <Button
+                                    href='https://wa.me/5541996262562?text=Olá!%20Gostaria%20de%20mais%20informações.'
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Encomendar cesta
+                                </Button>                            </Reveal>
                         </Stagger>
                     </div>
                 </div>

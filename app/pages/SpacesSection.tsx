@@ -1,17 +1,21 @@
 "use client";
 
+import { useCallback, useState } from "react";
 import { LazyMotion, domAnimation } from "framer-motion";
 import Title from "../components/Title";
 import Text from "../components/Text";
 import Button from "../components/Button";
 import DividerWithSun from "../components/DividerWithSun";
 import ImageSlideshow from "../components/ImageSlideshow";
+import PhotoGallery from "../components/PhotoGallery";
 import { Reveal, Stagger } from "../lib/motion";
 import SunRow from "../components/SunRow";
 
-// Tempos diferentes para os exibidores não trocarem de foto ao mesmo tempo
 const MAIN_INTERVAL = 4000;
 const DETAIL_INTERVAL = 5000;
+
+const WHATSAPP_URL =
+    "https://wa.me/5541996262562?text=Olá!%20Gostaria%20de%20mais%20informações.";
 
 const spacesData = [
     {
@@ -42,13 +46,24 @@ const spacesData = [
     },
 ];
 
+type Cabana = (typeof spacesData)[number];
+
+const getAllImages = (cabana: Cabana) => [
+    ...cabana.images.main,
+    ...cabana.images.detail,
+];
+
 export default function SpacesSection() {
+    const [galleryId, setGalleryId] = useState<string | null>(null);
+    const closeGallery = useCallback(() => setGalleryId(null), []);
+
+    const activeCabana = spacesData.find((c) => c.id === galleryId);
+
     return (
         <LazyMotion features={domAnimation} strict>
             <section id="cabanas" className="scroll-mt-0 text-[#E1D5BF] pt-24 lg:py-32 overflow-hidden">
                 <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col gap-24 lg:gap-32">
 
-                    {/* Cabeçalho */}
                     <Stagger
                         className="flex flex-col items-center text-center gap-6 max-w-3xl mx-auto"
                         gap={0.14}
@@ -81,10 +96,7 @@ export default function SpacesSection() {
                         {spacesData.map((cabana, index) => {
                             const isEven = index % 2 === 0;
                             const isLast = index === spacesData.length - 1;
-
-                            // No mobile existe só um espaço de imagem (o fundo),
-                            // então ele roda todas as fotos da cabana
-                            const mobileImages = [...cabana.images.main, ...cabana.images.detail];
+                            const mobileImages = getAllImages(cabana);
 
                             return (
                                 <div key={cabana.id} className="flex flex-col">
@@ -93,7 +105,6 @@ export default function SpacesSection() {
 
                                         <div className={`relative flex flex-col ${isEven ? "lg:order-1" : "lg:order-2"}`}>
 
-                                            {/* Fundo mobile */}
                                             <div className="absolute inset-0 z-0 lg:hidden">
                                                 <ImageSlideshow
                                                     images={mobileImages}
@@ -105,7 +116,6 @@ export default function SpacesSection() {
                                                 <div className="absolute inset-0 bg-[#1A0D0A]/80 pointer-events-none" />
                                             </div>
 
-                                            {/* Imagem desktop: fade + zoom out suave */}
                                             <div className="relative hidden lg:block w-full flex-grow min-h-[500px] overflow-hidden">
                                                 <Reveal standalone className="absolute inset-0">
                                                     <ImageSlideshow
@@ -117,7 +127,6 @@ export default function SpacesSection() {
                                                 </Reveal>
                                             </div>
 
-                                            {/* Botão desktop */}
                                             <Reveal
                                                 standalone
                                                 className={`hidden lg:flex items-center gap-4 mt-6 ${isEven ? "justify-end" : "justify-start"}`}
@@ -125,7 +134,7 @@ export default function SpacesSection() {
                                                 {isEven ? (
                                                     <>
                                                         <Button
-                                                            href='https://wa.me/5541996262562?text=Olá!%20Gostaria%20de%20mais%20informações.'
+                                                            href={WHATSAPP_URL}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
                                                         >
@@ -137,7 +146,7 @@ export default function SpacesSection() {
                                                     <>
                                                         <div className="h-14 w-[1px] bg-[#E1D5BF]" />
                                                         <Button
-                                                            href='https://wa.me/5541996262562?text=Olá!%20Gostaria%20de%20mais%20informações.'
+                                                            href={WHATSAPP_URL}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
                                                         >
@@ -147,7 +156,6 @@ export default function SpacesSection() {
                                                 )}
                                             </Reveal>
 
-                                            {/* Conteúdo mobile */}
                                             <Stagger
                                                 className="relative z-10 pt-10 pb-10 px-6 lg:p-0 lg:hidden flex flex-col gap-4 text-left"
                                                 gap={0.1}
@@ -175,13 +183,20 @@ export default function SpacesSection() {
                                                 </Reveal>
 
                                                 <Reveal className="flex flex-row gap-3 mt-4">
-                                                    <Button>Fazer reserva</Button>
-                                                    <Button>Ver fotos</Button>
+                                                    <Button
+                                                        href={WHATSAPP_URL}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                    >
+                                                        Fazer reserva
+                                                    </Button>
+                                                    <Button onClick={() => setGalleryId(cabana.id)}>
+                                                        Ver fotos
+                                                    </Button>
                                                 </Reveal>
                                             </Stagger>
                                         </div>
 
-                                        {/* Coluna 2 (desktop) */}
                                         <div className={`hidden lg:flex flex-col gap-8 ${isEven ? "lg:order-2" : "lg:order-1"}`}>
                                             <Stagger
                                                 className={`flex flex-col gap-4 ${!isEven ? "text-right items-end" : "text-left items-start"}`}
@@ -223,16 +238,13 @@ export default function SpacesSection() {
                                         </div>
                                     </div>
 
-                                    {/* Divisor */}
                                     {!isLast && (
                                         <div className="relative z-20 h-0 lg:h-auto">
 
-                                            {/* Desktop */}
                                             <div className="py-4 lg:py-32 hidden lg:block">
                                                 <DividerWithSun />
                                             </div>
 
-                                            {/* Mobile: sobreposto na emenda, mesma animação do desktop */}
                                             <div className="lg:hidden absolute top-0 left-1/2 w-screen -translate-x-1/2 -translate-y-1/2 pointer-events-none">
                                                 <SunRow />
                                             </div>
@@ -244,6 +256,13 @@ export default function SpacesSection() {
                     </div>
                 </div>
             </section>
+
+            <PhotoGallery
+                open={!!activeCabana}
+                onClose={closeGallery}
+                title={activeCabana?.name ?? ""}
+                images={activeCabana ? getAllImages(activeCabana) : []}
+            />
         </LazyMotion>
     );
 }
