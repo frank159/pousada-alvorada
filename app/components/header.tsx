@@ -12,6 +12,14 @@ const navLinks = [
     { name: "Contato", href: "#contato" },
 ];
 
+const mobileNavLinks = [
+    { name: "Home", href: "#home" },
+    { name: "Cabanas", href: "#cabanas" },
+    { name: "O que fazer", href: "#o-que-fazer" },
+    { name: "Cestas", href: "#cestas" },
+    { name: "Contato", href: "#contato" },
+];
+
 export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -195,7 +203,7 @@ export default function Header() {
                         className="font-alata fixed left-0 z-90 w-full overflow-hidden backdrop-blur-xl md:hidden"
                     >
                         <nav aria-label="Menu mobile" className="flex h-full w-full flex-col items-center">
-                            {navLinks.map((link) => (
+                            {mobileNavLinks.map((link) => (
                                 <motion.a
                                     key={link.name}
                                     href={link.href}

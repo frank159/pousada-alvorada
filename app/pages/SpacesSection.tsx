@@ -86,7 +86,7 @@ export default function SpacesSection() {
                             </Text>
                         </Reveal>
                         <Reveal>
-                            <Text className="text-[#E1D5BF]/80">
+                            <Text className="text-[#E1D5BF]/80 font-bold">
                                 Conheça as particularidades de cada uma:
                             </Text>
                         </Reveal>
